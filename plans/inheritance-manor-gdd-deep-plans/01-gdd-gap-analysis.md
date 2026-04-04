@@ -83,6 +83,10 @@ Authored snapshot content, runtime playthrough state, recap material, and loop t
 
 ## Verification Checklist
 
+- `git diff --check` returns no whitespace or conflict-marker issues.
+- `rg "implementation.md|01-gdd-gap-analysis" plans/inheritance-manor-gdd-deep-plans/README.md` finds both entries.
+- `rg "Settled Decisions|NEEDS CLARIFICATION|Bounded Ambiguity" plans/inheritance-manor-gdd-deep-plans/01-gdd-gap-analysis.md` returns the expected headings.
+- A new `practical_execution` memory write exists for the step and is connected to the active Yorkz task thread.
 - The canonical master GDD is named as the design source of truth.
 - The synopsis is treated as a near-term refinement source, not a competing canon.
 - Every settled decision is stated positively rather than implied.
