@@ -19,7 +19,7 @@ This document compares the canonical master GDD and the newer prologue synopsis 
 | Ontology | Multiple candidate explanations stay open early | Bounded ambiguity with fixed constraints | Preserve uncertainty, but stop treating the ontology as unconstrained |
 | Staff identity | Shared identity with shifted presentation is stated as the intended model | Same model named directly | Treat shared identity with shifted presentation as settled |
 | Client framework | Deferred in favor of text-first UX | Deferred in favor of text-first UX | Keep framework choice downstream of content and memory contracts |
-| Memory architecture | MCP server is canonical world-state layer | Same, with project_id yorkz and snapshot notes | Plan around explicit MCP-driven state, not prompt-only story state |
+| Memory architecture | MCP server is canonical world-state layer | Same, with project_id: yorkz and snapshot notes | Plan around explicit MCP-driven state, not prompt-only story state |
 | Snapshot/runtime split | Named conceptually | Broken into explicit authored and runtime categories | Move snapshot/schema planning earlier in importance |
 | MVP locations | Great Hall, Master Bedroom, one Guest Bedroom, Great Library, Exterior Front | Same minimum slice implied through narrative and systems focus | Treat this as the locked room set for the first playable loop |
 
