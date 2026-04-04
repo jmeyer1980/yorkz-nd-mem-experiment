@@ -8,6 +8,7 @@ Current source inputs:
 - `docs/initial drafts/manor-campaign-synopsis.json`: newer prologue-focused synopsis that resolves several earlier planning assumptions.
 - `docs/initial drafts/draft-inheritance-manor-memories.json`: currently empty draft authored-memory file; treated as a planning signal that seed-memory design still needs definition.
 - `plan.md`: revised single-PR, commit-oriented planning plan.
+- `implementation.md`: copy-paste-ready execution guide for authoring the deep-planning packet.
 
 Revised next document sequence:
 
