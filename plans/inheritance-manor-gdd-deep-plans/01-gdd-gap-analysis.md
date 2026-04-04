@@ -49,8 +49,8 @@ Authored snapshot content, runtime playthrough state, recap material, and loop t
 
 - `02-narrative-story-structure.md` must stop at the morning-after boundary.
 - `03-world-location-design.md` must describe only the MVP rooms as required content and treat all other spaces as backlog placeholders.
-- `04-systems-memory-model.md` must define retrieval and write rules against explicit memory categories.
 - `05-npc-relationship-design.md` must prioritize Thomas, the detective, the lawyer, and minimal implied night staff.
+- `04-systems-memory-model.md` must define retrieval and write rules against explicit memory categories.
 - `07-content-pipeline-and-snapshots.md` must define the authored seed-memory pack because the current draft JSON is empty.
 - `06-technical-architecture.md` must remain framework-neutral while still specifying component contracts.
 
