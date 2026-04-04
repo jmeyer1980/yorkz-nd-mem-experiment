@@ -1,0 +1,219 @@
+{
+  "campaign_id": "inheritance-manor-prologue-v1",
+  "title": "The Inheritance Manor – Prologue",
+  "kind": "campaign_synopsis",
+  "version": "0.1.0",
+  "status": "draft",
+  "created_at": "2026-04-04T18:00:00Z",
+  "authors": ["Jerry M"],
+  "tags": [
+    "yorkz",
+    "inheritance-manor",
+    "text-rpg",
+    "mcp",
+    "neurodivergent-memory"
+  ],
+
+  "mcp_integration": {
+    "memory_server_project_id": "yorkz",
+    "recommended_snapshot_file": "campaigns/inheritance-manor/prologue-snapshot.json",
+    "snapshot_dedupe_policy": "content_plus_tags",
+    "campaign_start_tag": "campaign:start",
+    "player_identity_tag": "actor:player",
+    "notes": "Use project_id yorkz for gameplay content and import_memories(file_path, preserve_ids=true, merge_connections=true) at campaign start."
+  },
+
+  "narrative": {
+    "logline": "You inherit a pristine country estate that exists in two overlapping realities: a mundane day world and a shifted night world where the staff know you better than you know yourself.",
+    "tone": [
+      "psychological-thriller",
+      "uncanny",
+      "slow-burn",
+      "non-gory"
+    ],
+    "content_warnings": [
+      "psychological horror",
+      "missing persons",
+      "implied violence",
+      "gaslighting"
+    ],
+    "premise": {
+      "setup": "The player unexpectedly inherits a well-maintained manor and surrounding estate in modern-day Earth.",
+      "inciting_incident": "The player chooses to sell or keep the property; either way, a missing worker or agent draws police attention and forces an on-site visit.",
+      "day_world_promise": "During the day the manor is pristine and mundane, framed by lawyers and detectives dealing with legal and investigative fallout.",
+      "night_world_promise": "At night, the house shifts, staff appear who treat the player as lifelong family, and monsters roam outside the walls."
+    },
+    "ontological_truth": {
+      "status": "bounded-ambiguous",
+      "constraints": [
+        "The manor is real and physically present in a modern-Earth setting.",
+        "Night reality has consistent rules even if not fully explained to the player.",
+        "Staff memories of the player are sincere from their point of view."
+      ],
+      "candidate_frames": [
+        "The manor as a memory construct entangled with the player.",
+        "Branching timelines anchored to the estate.",
+        "An inherited pact binding the estate to the player’s psyche."
+      ],
+      "design_note": "Do not fully canonize a single explanation in the prologue; leave room for later campaigns to collapse the ambiguity."
+    },
+    "structure": {
+      "phases": [
+        {
+          "id": "prologue-arrival",
+          "label": "The Letter and Arrival",
+          "goal": "Get the player to the manor with a personal stake via the sell-or-keep decision and the missing person hook.",
+          "exit_condition": "Player is physically inside the manor with keys in hand and at least one authority figure defined (lawyer or detective)."
+        },
+        {
+          "id": "first-night",
+          "label": "First Shift",
+          "goal": "Reveal the night reality, staff familiarity, and exterior monsters while preserving relative safety inside the manor.",
+          "exit_condition": "Player survives until morning with at least one strong impression of the staff’s prior relationship claims."
+        }
+      ]
+    }
+  },
+
+  "world": {
+    "reality_layers": [
+      {
+        "id": "day",
+        "label": "Daylight Estate",
+        "description": "Pristine, mundane modern estate; authorities and logistics dominate; no visible supernatural phenomena.",
+        "rules": {
+          "outside_is_safe": true,
+          "staff_visibility": "minimal_or_absent",
+          "monsters_presence": "none",
+          "authorities": "police_and_lawyers_can_appear"
+        }
+      },
+      {
+        "id": "night",
+        "label": "Shifted Manor",
+        "description": "Altered interior layout, living staff who know the player, and real monsters roaming outside.",
+        "rules": {
+          "outside_is_safe": false,
+          "staff_visibility": "full_familiar_emotionally_warm_but_uncanny",
+          "monsters_presence": "active_on_exterior_grounds",
+          "doors_to_outside": "barred_or_strongly_discouraged_in_narration"
+        }
+      }
+    ],
+    "core_locations": [
+      "Great Hall",
+      "Master Bedroom",
+      "Guest Bedroom 1",
+      "Guest Bedroom 2",
+      "Guest Bedroom 3",
+      "Great Library",
+      "Dining Hall",
+      "Dance Hall",
+      "Kitchens and Staff Areas",
+      "Wine Cellar and Storage Basement",
+      "Greenhouse",
+      "Workshop",
+      "Exterior Grounds"
+    ],
+    "identity_model": {
+      "staff_identity_mode": "shared_identity_shifted_presentation",
+      "description": "Day and night staff are the same underlying people; night overlay exposes deeper or altered memories while day overlay is absent, suppressed, or filtered through mundane roles."
+    }
+  },
+
+  "characters": {
+    "player": {
+      "id": "player",
+      "role": "heir",
+      "starting_knowledge": [
+        "Received an unexpected inheritance for a pristine estate.",
+        "Knows almost nothing about prior owners or staff.",
+        "Is approached via letter, with optional real-estate and cleaning crew intermediaries."
+      ],
+      "primary_conflicts": [
+        "Pressure from authorities regarding missing persons.",
+        "Cognitive dissonance between their memories and the staff’s familiarity.",
+        "Deciding whether to trust the manor, the staff, or outside authorities."
+      ]
+    },
+    "key_npcs": [
+      {
+        "id": "thomas",
+        "role": "butler",
+        "layer_presence": {
+          "day": "absent",
+          "night": "primary"
+        },
+        "relationship_pitch": "Treats the player as a long-lost household member returning home after an unexplained absence.",
+        "function": "Exposition, emotional anchor, and gatekeeper for parts of the night manor."
+      },
+      {
+        "id": "detective",
+        "role": "police-detective",
+        "layer_presence": {
+          "day": "primary",
+          "night": "absent"
+        },
+        "relationship_pitch": "Treats the player as a person of interest and potential unreliable narrator.",
+        "function": "Applies external pressure, frames the missing person thread, and grounds the setting in modern-Earth reality."
+      },
+      {
+        "id": "lawyer",
+        "role": "estate-lawyer",
+        "layer_presence": {
+          "day": "supporting",
+          "night": "absent"
+        },
+        "relationship_pitch": "Professional neutral party facilitating transfer of ownership.",
+        "function": "Explains legal stakes, documentation, and practical aspects of owning the manor."
+      }
+    ]
+  },
+
+  "systems": {
+    "time_model": "discrete-phases-day-night",
+    "core_loops": [
+      "Explore locations, talk to NPCs, and inspect objects.",
+      "Record key decisions, discoveries, and emotional beats into the memory graph.",
+      "Advance time to trigger the first night shift once core arrival beats have fired."
+    ],
+    "failure_model": {
+      "type": "soft-failure",
+      "description": "Early campaign emphasizes narrative consequences and relationship shifts over hard game-over states; monsters primarily function as threat and boundary."
+    },
+    "memory_server_usage": {
+      "district_mapping": {
+        "logical_analysis": "facts_room_topology_investigation_progress",
+        "emotional_processing": "relationships_trust_levels_emotional_tone",
+        "practical_execution": "items_tasks_open_todo_hooks",
+        "vigilant_monitoring": "threats_safety_boundaries_missing_persons",
+        "creative_synthesis": "dreamlike_or_ambiguous_insights_distilled_theories"
+      },
+      "snapshot_vs_runtime": {
+        "snapshot_contains": [
+          "authored rooms and core locations",
+          "baseline NPC identities and roles",
+          "day and night state rules for key locations",
+          "initial plot hooks like the inheritance letter and missing person setup"
+        ],
+        "runtime_state_contains": [
+          "player-specific decisions and inventory",
+          "relationship histories and emotional valence updates",
+          "loop telemetry and recap summaries",
+          "distilled insights derived from the player’s unique playthrough"
+        ]
+      }
+    }
+  },
+
+  "client_assumptions": {
+    "mvp_mode": "text-first",
+    "ui_expectations": [
+      "Keyboard-only input with scrollback transcript.",
+      "Built-in recap or \"what just happened\" command powered by the memory server.",
+      "Accessibility-friendly color and layout; no reliance on 3D or animation."
+    ],
+    "framework_decision": "deferred",
+    "notes": "Client may be terminal-based (e.g., Textual) or minimal web; synopsis intentionally does not lock this in."
+  }
+}
