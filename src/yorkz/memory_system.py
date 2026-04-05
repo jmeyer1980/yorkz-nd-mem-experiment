@@ -484,6 +484,22 @@ class MemorySystem:
         if package.dedupe not in {"none", "content_hash", "content_plus_tags"}:
             raise ValueError(f"Unsupported dedupe policy '{package.dedupe}'.")
 
+        if package.merge_connections:
+            entry_ids = {entry.record_id for entry in package.entries}
+            missing_endpoint_ids = sorted(
+                {
+                    endpoint
+                    for left, right, _bidirectional in package.connections
+                    for endpoint in (left, right)
+                    if endpoint not in entry_ids
+                }
+            )
+            if missing_endpoint_ids:
+                raise ValueError(
+                    f"Snapshot connection references unknown id(s): {', '.join(missing_endpoint_ids)}. "
+                    "Ensure all connection endpoints are present in the snapshot entries."
+                )
+
         imported_id_map: dict[str, str] = {}
         for entry in package.entries:
             duplicate_id = self._find_duplicate(entry, policy=package.dedupe)
@@ -502,12 +518,6 @@ class MemorySystem:
 
         if package.merge_connections:
             for left, right, bidirectional in package.connections:
-                missing = [id_ for id_ in (left, right) if id_ not in imported_id_map]
-                if missing:
-                    raise ValueError(
-                        f"Snapshot connection references unknown id(s): {', '.join(missing)}. "
-                        "Ensure all connection endpoints are present in the snapshot entries."
-                    )
                 left_id = imported_id_map[left]
                 right_id = imported_id_map[right]
                 if left_id == right_id:

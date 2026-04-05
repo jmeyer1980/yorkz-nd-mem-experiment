@@ -521,6 +521,7 @@ def test_import_snapshot_raises_on_unknown_connection_endpoint() -> None:
     store = MemorySystem(project_id="yorkz")
     with pytest.raises(ValueError, match="nonexistent_id_xyz"):
         store.import_snapshot(package)
+    assert store.records == {}
 
 
 def test_sync_to_gateway_deduplicates_record_ids() -> None:
