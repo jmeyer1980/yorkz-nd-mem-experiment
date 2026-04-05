@@ -1,5 +1,14 @@
 .history/
 
+# Python build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.pytest_cache/
+
 # Node.gitignore
 logs
 *.log
