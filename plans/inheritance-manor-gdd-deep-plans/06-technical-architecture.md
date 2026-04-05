@@ -4,14 +4,17 @@
 
 Define the framework-neutral runtime architecture for The Inheritance Manor after the vertical-slice content, memory rules, and authored snapshot boundaries are explicit.
 
-## Architecture Goals
+## Architectural Rule
 
-1. Keep the player-facing client thin and replaceable.
-2. Make the AI Game Master the only layer that interprets content rules and turn flow.
-3. Treat the memory server as the canonical state authority for authored and runtime records.
-4. Preserve auditability through explicit prompts, retrieval order, and write rules.
-5. Keep the repository documentation-first until the authored seed pack and milestone gates are satisfied.
+Keep the repository documentation-first until the authored seed pack and milestone gates are satisfied. The implementation architecture must preserve a thin, replaceable player-facing client; make the AI Game Master the only layer that interprets content rules and turn flow; treat the memory server as the canonical state authority for authored and runtime records; and preserve auditability through explicit prompts, retrieval order, and write rules.
 
+## Proposed Repository Structure For Later Implementation
+
+The repository should remain planning- and documentation-first for now, with later implementation organized around three runtime layers:
+
+- a client layer for player interaction and presentation,
+- an AI Game Master layer for orchestration and narrative rule enforcement,
+- a memory layer that stores authored and runtime records as the canonical state authority.
 ## Three-Layer Model
 
 ### Layer 1: Client
