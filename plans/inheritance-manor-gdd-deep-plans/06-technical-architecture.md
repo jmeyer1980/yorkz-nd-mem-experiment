@@ -115,9 +115,10 @@ Required reads:
 
 Required runtime scoping:
 
-- every mutable runtime record must carry a playthrough or session lineage identifier in addition to `project_id`,
-- authored anchors remain shared, but runtime retrieval must filter to the active lineage unless a recap or comparison flow explicitly asks for historical runs,
-- recap generation and session resume must use the active lineage as the default boundary.
+- every mutable runtime record must carry a canonical `lineage_id` field in addition to `project_id`; `lineage_id` is the stable string identifier for the active playthrough/session lineage defined in `04-systems-memory-model.md`,
+- `lineage_id` is the contract-level runtime scope key; tags or ID prefixes may be added for convenience, but they are not a substitute for the `lineage_id` field and must not be the only lineage representation,
+- authored anchors remain shared and are not filtered by `lineage_id`, but runtime retrieval must filter by both `project_id` and `lineage_id = active_lineage_id` unless a recap, comparison, or audit flow explicitly asks for historical runs,
+- recap generation and session resume must use `lineage_id = active_lineage_id` as the default boundary and only widen scope when the prompt or API call explicitly requests cross-lineage history.
 
 Required writes:
 
