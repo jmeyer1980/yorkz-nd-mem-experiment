@@ -1,0 +1,726 @@
+{
+	"campaign_id": "inheritance-manor-prologue-v1",
+	"project_id": "yorkz",
+	"kind": "campaign_snapshot",
+	"version": "0.1.0",
+	"preserve_ids": true,
+	"merge_connections": true,
+	"dedupe": "content_plus_tags",
+	"entries": [
+		{
+			"id": "camp_inheritance_manor_prologue_first_night",
+			"content": "Campaign metadata anchor for The Inheritance Manor prologue through the morning after the first shift. This authored baseline defines the slice boundary, phase order, and retrieval namespace for runtime play.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:campaign_metadata",
+				"mechanic:authored_snapshot"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_letter",
+			"content": "Phase anchor for the inheritance letter. Function: establish the summons, the legal framing, and the emotional pressure that pulls the player toward the manor.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:letter"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_decision",
+			"content": "Phase anchor for the decision to go. Function: convert curiosity and obligation into an explicit commitment that moves the player from abstract inheritance to embodied travel.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:decision"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_arrival",
+			"content": "Phase anchor for arrival at the estate. Function: frame the grounds as imposing but administratively legitimate, with the exterior already hinting at danger after dark.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:arrival"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_interior_day",
+			"content": "Phase anchor for first interior exploration in daylight. Function: orient the player, surface the inheritance bureaucracy, and seed the first mismatch clues while the house still appears stable.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:interior_day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_first_shift",
+			"content": "Phase anchor for the first night shift. Function: trigger the staff presentation change, narrow the safe navigable space, and escalate contradiction into active threat pressure.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:first_shift"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "phase_morning_after",
+			"content": "Phase anchor for the morning after the first shift. Function: stabilize the immediate aftermath, collect recap output, and leave the player with a sharper but still bounded theory set.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:morning_after"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_great_hall_day",
+			"content": "Great Hall daytime anchor. Function: orientation, key handoff, social ceremony, and the first administrative impression of the estate as a real inherited property.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:great_hall",
+				"state:day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_great_hall_night",
+			"content": "Great Hall night anchor. Function: ceremonial corridor under tension, where staff presence feels coordinated and the house stops reading as merely old.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:great_hall",
+				"state:night"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_master_bedroom_day",
+			"content": "Master Bedroom daytime anchor. Function: establish inheritance intimacy, private-family expectation, and the absence of a clean explanation for recent occupation.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:master_bedroom",
+				"state:day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_master_bedroom_night",
+			"content": "Master Bedroom night anchor. Function: safe-room candidate that also amplifies the sense that the house remembers prior owners more strongly after dark.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:master_bedroom",
+				"state:night"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_guest_bedroom_1_day",
+			"content": "Guest Bedroom 1 daytime anchor. Function: low-pressure investigative space with traces of hurried, incomplete preparation for a guest who may never have arrived.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:guest_bedroom_1",
+				"state:day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_guest_bedroom_1_night",
+			"content": "Guest Bedroom 1 night anchor. Function: fallback rest space whose apparent neutrality makes inconsistencies stand out more sharply under staff surveillance.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:guest_bedroom_1",
+				"state:night"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_great_library_day",
+			"content": "Great Library daytime anchor. Function: document-rich investigation hub where paper evidence can be discovered without immediate supernatural escalation.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:great_library",
+				"state:day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_great_library_night",
+			"content": "Great Library night anchor. Function: clue-dense room whose silence becomes oppressive and where the same records feel curated rather than inert.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:great_library",
+				"state:night"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_exterior_front_day",
+			"content": "Exterior Front daytime anchor. Function: threshold between safety assumptions and the estate's isolation, used for arrival, departure thinking, and first impressions of scale.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:exterior_front",
+				"state:day"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "loc_exterior_front_night",
+			"content": "Exterior Front night anchor. Function: explicit danger threshold where leaving the house becomes narratively possible but mechanically unsafe.",
+			"district": "vigilant_monitoring",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:exterior_front",
+				"state:night"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "npc_thomas_core",
+			"content": "Thomas anchor. Function: primary human bridge into the manor, carrying obligation, familiarity, and carefully managed fear about what changes after dusk.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"npc:thomas"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "npc_detective_core",
+			"content": "Detective anchor. Function: skeptical outside observer whose methods pressure the mystery toward evidence even while the house keeps truth partially bounded.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"npc:detective"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "npc_lawyer_core",
+			"content": "Lawyer anchor. Function: legal framing character whose confidence in the paperwork makes missing links and administrative omissions more suspicious.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"npc:lawyer"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rel_thomas_player_baseline",
+			"content": "Relationship baseline for Thomas and the player. Starting stance: protective, deferential, and withholding when questions move too close to the house's night behavior.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"relationship:thomas_player",
+				"npc:thomas"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rel_detective_player_baseline",
+			"content": "Relationship baseline for the detective and the player. Starting stance: professional alliance with mild tension, inviting interpretation but not automatic trust.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"relationship:detective_player",
+				"npc:detective"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rel_lawyer_player_baseline",
+			"content": "Relationship baseline for the lawyer and the player. Starting stance: formally cooperative, materially helpful, and overly invested in the inheritance paperwork holding together.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"relationship:lawyer_player",
+				"npc:lawyer"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "hook_inheritance_notice",
+			"content": "Plot-hook anchor for the inheritance notice. Function: establish the initial summons and create the expectation that the estate's transfer should be clean, documented, and explainable.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:decision",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:letter",
+				"mystery:inheritance_notice"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "hook_missing_intermediary",
+			"content": "Plot-hook anchor for the missing intermediary. Function: create the first concrete administrative contradiction and give the detective and lawyer a shared point of friction.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:decision",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:interior_day",
+				"mystery:missing_intermediary"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "hook_first_shift_trigger",
+			"content": "Plot-hook anchor for the first-shift trigger. Function: define the transition condition that turns the staff presentation and navigation rules from strange to urgent.",
+			"district": "practical_execution",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:decision",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:first_shift",
+				"mechanic:day_night_cycle"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rule_outside_unsafe_at_night",
+			"content": "Rule anchor: the exterior is unsafe at night. Function: gate the playable space, support the house-as-refuge lie, and keep early-night fear pressure spatially legible.",
+			"district": "vigilant_monitoring",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"state:night",
+				"mechanic:day_night_cycle"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rule_safety_lies_inside",
+			"content": "Rule anchor: safety appears to lie inside the manor. Function: justify temporary shelter choices while keeping the interior's safety conditional rather than true.",
+			"district": "vigilant_monitoring",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"state:night",
+				"mechanic:safe_room_logic"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "rule_bounded_ambiguity",
+			"content": "Rule anchor: ambiguity must stay bounded. Function: ensure the game produces interpretable contradictions and theory pressure rather than arbitrary surreal drift.",
+			"district": "vigilant_monitoring",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:architecture",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"mechanic:bounded_ambiguity",
+				"mystery:interpretation_pressure"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "clue_letter_signature_mismatch",
+			"content": "Clue anchor: the inheritance letter signature and the house records do not align cleanly. Function: start the contradiction chain with a plausible but unresolved paperwork inconsistency.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:letter",
+				"mystery:signature_mismatch"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "clue_ledger_missing_transfer",
+			"content": "Clue anchor: the library ledger records holdings but omits the transfer route through the intermediary. Function: deepen the contradiction and support the detective's evidence-first reading.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:great_library",
+				"mystery:missing_intermediary"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "clue_muddy_shoeprint",
+			"content": "Clue anchor: a muddy shoeprint appears by the front threshold after dark despite the house insisting the exterior is unsafe and unused. Function: convert paperwork contradiction into physical unease.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:reference",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"location:exterior_front",
+				"mystery:exterior_breach"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "recap_first_shift_template",
+			"content": "Recap template anchor for the first-shift close. Output fields: rooms visited, staff presentation changes observed, contradictions collected, and immediate safety theory.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:template",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:first_shift",
+				"mechanic:recap"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		},
+		{
+			"id": "recap_morning_after_template",
+			"content": "Recap template anchor for the morning after. Output fields: overnight decisions, surviving theories, unresolved contradiction chain, and the strongest next-step pressure.",
+			"district": "logical_analysis",
+			"tags": [
+				"topic:inheritance-manor",
+				"scope:project",
+				"kind:template",
+				"layer:implementation",
+				"campaign:inheritance_manor",
+				"slice:prologue_first_night",
+				"phase:morning_after",
+				"mechanic:recap"
+			],
+			"project_id": "yorkz",
+			"epistemic_status": "validated",
+			"memory_type": "authored"
+		}
+	],
+	"connections": [
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_letter",
+			"bidirectional": true
+		},
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_decision",
+			"bidirectional": true
+		},
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_arrival",
+			"bidirectional": true
+		},
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_interior_day",
+			"bidirectional": true
+		},
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_first_shift",
+			"bidirectional": true
+		},
+		{
+			"from": "camp_inheritance_manor_prologue_first_night",
+			"to": "phase_morning_after",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_letter",
+			"to": "hook_inheritance_notice",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_arrival",
+			"to": "loc_exterior_front_day",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_interior_day",
+			"to": "loc_great_hall_day",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_interior_day",
+			"to": "loc_great_library_day",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_interior_day",
+			"to": "hook_missing_intermediary",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_first_shift",
+			"to": "hook_first_shift_trigger",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_first_shift",
+			"to": "loc_great_hall_night",
+			"bidirectional": true
+		},
+		{
+			"from": "phase_first_shift",
+			"to": "rule_outside_unsafe_at_night",
+			"bidirectional": true
+		},
+		{
+			"from": "npc_thomas_core",
+			"to": "rel_thomas_player_baseline",
+			"bidirectional": true
+		},
+		{
+			"from": "npc_detective_core",
+			"to": "rel_detective_player_baseline",
+			"bidirectional": true
+		},
+		{
+			"from": "npc_lawyer_core",
+			"to": "rel_lawyer_player_baseline",
+			"bidirectional": true
+		},
+		{
+			"from": "clue_letter_signature_mismatch",
+			"to": "clue_ledger_missing_transfer",
+			"bidirectional": false
+		},
+		{
+			"from": "clue_ledger_missing_transfer",
+			"to": "clue_muddy_shoeprint",
+			"bidirectional": false
+		},
+		{
+			"from": "rule_safety_lies_inside",
+			"to": "loc_master_bedroom_night",
+			"bidirectional": true
+		},
+		{
+			"from": "rule_bounded_ambiguity",
+			"to": "recap_first_shift_template",
+			"bidirectional": true
+		},
+		{
+			"from": "rule_bounded_ambiguity",
+			"to": "recap_morning_after_template",
+			"bidirectional": true
+		}
+	]
+}
