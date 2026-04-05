@@ -114,6 +114,7 @@ class MemoryRecord:
     intensity: float | None = None
     epistemic_status: str = "validated"
     source_ids: tuple[str, ...] = ()
+    lineage_id: str | None = None
 
     def __post_init__(self) -> None:
         if self.district not in ALLOWED_DISTRICTS:
@@ -158,6 +159,8 @@ class MemoryRecord:
             payload["emotional_valence"] = self.emotional_valence
         if self.intensity is not None:
             payload["intensity"] = self.intensity
+        if self.lineage_id is not None:
+            payload["lineage_id"] = self.lineage_id
         return payload
 
     def to_snapshot_entry(self) -> dict[str, Any]:
@@ -176,6 +179,8 @@ class MemoryRecord:
             entry["intensity"] = self.intensity
         if self.source_ids:
             entry["source_ids"] = list(self.source_ids)
+        if self.lineage_id is not None:
+            entry["lineage_id"] = self.lineage_id
         return entry
 
     @classmethod
@@ -191,6 +196,7 @@ class MemoryRecord:
             intensity=entry.get("intensity"),
             epistemic_status=entry.get("epistemic_status", "validated"),
             source_ids=tuple(entry.get("source_ids", ())),
+            lineage_id=entry.get("lineage_id"),
         )
 
 
@@ -496,6 +502,12 @@ class MemorySystem:
 
         if package.merge_connections:
             for left, right, bidirectional in package.connections:
+                missing = [id_ for id_ in (left, right) if id_ not in imported_id_map]
+                if missing:
+                    raise ValueError(
+                        f"Snapshot connection references unknown id(s): {', '.join(missing)}. "
+                        "Ensure all connection endpoints are present in the snapshot entries."
+                    )
                 left_id = imported_id_map[left]
                 right_id = imported_id_map[right]
                 if left_id == right_id:
@@ -546,6 +558,7 @@ class MemorySystem:
             intensity=record.intensity,
             epistemic_status=record.epistemic_status,
             source_ids=record.source_ids,
+            lineage_id=record.lineage_id,
         )
 
     def distill_emotional_memory(
@@ -582,7 +595,15 @@ class MemorySystem:
         record_ids: list[str] | None = None,
     ) -> dict[str, str]:
         synced: dict[str, str] = {}
-        target_ids = sorted(self._records) if record_ids is None else list(record_ids)
+        if record_ids is None:
+            target_ids = sorted(self._records)
+        else:
+            seen: set[str] = set()
+            target_ids = []
+            for rid in record_ids:
+                if rid not in seen:
+                    seen.add(rid)
+                    target_ids.append(rid)
         for record_id in target_ids:
             record = self.get(record_id)
             remote_id = gateway.store_memory(record.to_memory_payload())

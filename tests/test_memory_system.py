@@ -466,3 +466,79 @@ def test_gateway_sync_allows_explicit_empty_record_selection() -> None:
 
     assert store.sync_to_gateway(gateway, record_ids=[]) == {}
     assert gateway.stored_payloads == []
+
+def test_lineage_id_is_included_in_snapshot_and_payload() -> None:
+    record = MemoryRecord(
+        record_id="runtime_session_note_1",
+        content="Player examined the cellar door in run 2.",
+        district="practical_execution",
+        tags=build_tags("kind:state", "phase:first_shift", "location:cellar"),
+        project_id="yorkz",
+        memory_type="runtime",
+        lineage_id="run_2026_prologue_01",
+    )
+
+    payload = record.to_memory_payload()
+    assert payload["lineage_id"] == "run_2026_prologue_01"
+
+    entry = record.to_snapshot_entry()
+    assert entry["lineage_id"] == "run_2026_prologue_01"
+
+    restored = MemoryRecord.from_snapshot_entry({**entry, "id": entry["id"]})
+    assert restored.lineage_id == "run_2026_prologue_01"
+
+
+def test_lineage_id_absent_when_not_set() -> None:
+    record = MemoryRecord(
+        record_id="runtime_session_note_2",
+        content="Player examined the cellar door.",
+        district="practical_execution",
+        tags=build_tags("kind:state", "phase:first_shift", "location:cellar"),
+        project_id="yorkz",
+        memory_type="runtime",
+    )
+    assert "lineage_id" not in record.to_memory_payload()
+    assert "lineage_id" not in record.to_snapshot_entry()
+
+
+def test_import_snapshot_raises_on_unknown_connection_endpoint() -> None:
+    known = MemoryRecord(
+        record_id=make_authored_id("loc", "great_hall", "day"),
+        content="Great Hall daylight anchor.",
+        district="logical_analysis",
+        tags=build_tags("campaign:inheritance_manor", "state:day", "location:great_hall"),
+        project_id="yorkz",
+        memory_type="authored",
+    )
+    package = SnapshotPackage(
+        campaign_id="test-snapshot",
+        project_id="yorkz",
+        preserve_ids=True,
+        dedupe="none",
+        entries=[known],
+        connections=[(known.record_id, "nonexistent_id_xyz", True)],
+    )
+    store = MemorySystem(project_id="yorkz")
+    with pytest.raises(ValueError, match="nonexistent_id_xyz"):
+        store.import_snapshot(package)
+
+
+def test_sync_to_gateway_deduplicates_record_ids() -> None:
+    store = MemorySystem(project_id="yorkz")
+    record = MemoryRecord(
+        record_id=make_authored_id("npc", "thomas", "core"),
+        content="Thomas baseline anchor.",
+        district="logical_analysis",
+        tags=build_tags("campaign:inheritance_manor", "npc:thomas"),
+        project_id="yorkz",
+        memory_type="authored",
+    )
+    store.upsert(record)
+
+    gateway = FakeGateway()
+    synced = store.sync_to_gateway(
+        gateway, record_ids=[record.record_id, record.record_id, record.record_id]
+    )
+
+    assert len(gateway.stored_payloads) == 1
+    assert synced == {record.record_id: "remote_1"}

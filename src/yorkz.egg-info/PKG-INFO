@@ -1,0 +1,126 @@
+Metadata-Version: 2.4
+Name: yorkz
+Version: 0.1.0
+Summary: Text-first psychological thriller RPG tooling and runtime for the Yorkz project.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: textual>=8.2.0
+Requires-Dist: node>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=9.0.0; extra == "dev"
+
+# Development Plan for The Inheritance Manor
+
+## Project Purpose and Goals
+
+The Inheritance Manor is a text-first psychological thriller RPG built around an AI Game Master and the neurodivergent-memory MCP server. The immediate goal is to turn the current design work into an executable vertical slice: a playable prologue and first-night experience that proves the dual-reality manor, persistent relationship memory, recap-friendly narrative flow, and authored-versus-runtime content boundaries.
+
+This plan is written for a senior AI coding agent. It assumes the agent will move from documentation into implementation while preserving the master GDD as the canonical creative brief.
+
+## Context and Background
+
+- The repository is currently documentation-first and contains no gameplay implementation code.
+- The canonical design source is docs/GDD/Master Game Design Document –  The Inheritance Manor.md.
+- Supporting draft inputs exist in docs/initial drafts/, especially manor-campaign-synopsis.json.
+- The project has already converged on a vertical-slice-first scope: prologue plus first night.
+- The game depends on the neurodivergent-memory MCP server as the canonical world-state layer.
+- The current authored memory draft is empty, which means seed-memory authoring must be treated as required foundation work rather than deferred polish.
+
+## Hard Requirements
+
+- The MVP must be text-first, keyboard-friendly, and recap-capable.
+- The first implementation slice must end at the morning after the first shift.
+- The AI Game Master must remain an orchestration layer over explicit memory state, not a hidden parallel state machine.
+- Authored snapshot content and runtime playthrough state must remain separate.
+- The project namespace for gameplay memories should be project_id yorkz.
+- The first authored campaign target is campaign_id inheritance-manor-prologue-v1.
+- The implementation must preserve bounded ambiguity rather than prematurely collapsing the manor's ontology.
+- The MVP cast must at minimum support Thomas, the detective, and the lawyer.
+- The MVP room set must at minimum support the Great Hall, Master Bedroom, one Guest Bedroom, Great Library, and Exterior Front.
+
+## Assumptions and Open Design Constraints
+
+- The client framework is intentionally undecided; choose the simplest stack that satisfies transcript, input, recap, and accessibility requirements.
+- The first playable implementation may prioritize one arrival path as the canonical path, as long as the data model still supports later branching.
+- Later acts should be represented only by stable interfaces and extensibility points during the MVP phase.
+- The initial authored memory pack should include rooms, baseline NPC anchors, initial plot hooks, state tags, and a minimal clue set.
+
+## Development Phases
+
+### Phase 1: Foundation and Source Alignment
+
+- [ ] Read and internalize the master GDD before implementation work begins.
+- [ ] Review supporting drafts under docs/initial drafts/ and note any contradictions against the master GDD.
+- [ ] Establish a docs-to-implementation traceability note so system decisions can be linked back to the GDD.
+- [ ] Confirm the MVP scope, room set, cast, and campaign identifiers in code-facing configuration.
+- [ ] Define the repository structure for client, AI Game Master orchestration, authored content, and tests.
+
+### Phase 2: Authored Content Schema and Seed Memory Pack
+
+- [ ] Design the authored snapshot schema for campaign content.
+- [ ] Define canonical tags for locations, NPCs, time-state, mechanics, clues, and campaign scope.
+- [ ] Define a deterministic ID strategy for authored memory nodes.
+- [ ] Scaffold the initial seed-memory pack for the prologue campaign.
+- [ ] Encode the MVP rooms in authored content with both day and night state anchors where applicable.
+- [ ] Encode the MVP cast with baseline role, layer presence, and relationship anchors.
+- [ ] Add validation checks so authored snapshot content can be checked before runtime import.
+
+### Phase 3: Memory Integration and Runtime State Model
+
+- [ ] Implement the storage contract that separates authored snapshot imports from mutable runtime state.
+- [ ] Define runtime records for inventory, relationship movement, clue discovery, recap summaries, and loop telemetry.
+- [ ] Implement retrieval conventions so the Game Master can resolve scenes by room, phase, NPC, and threat state.
+- [ ] Implement write conventions for player decisions, emotional shifts, and distilled insights.
+- [ ] Add tests or validation scripts for import behavior, retrieval shape, and state mutation boundaries.
+
+### Phase 4: AI Game Master Orchestration Layer
+
+- [ ] Implement the input-to-scene orchestration loop.
+- [ ] Define how player commands are parsed into intents or action categories.
+- [ ] Implement scene assembly from authored content plus runtime state.
+- [ ] Implement rules for day-to-night phase transition and morning-after resolution.
+- [ ] Implement prompt and tool contracts that keep important truth in memory state rather than prompt-only context.
+- [ ] Implement recap generation driven by stored scene and relationship state.
+
+### Phase 5: Text-First Client MVP
+
+- [ ] Build a text-first client shell with keyboard input and transcript output.
+- [ ] Add commands or affordances for help, recap, inspect, talk, move, wait, and inventory or equivalent state review.
+- [ ] Ensure the client renders day and night transitions clearly.
+- [ ] Ensure the client supports accessible formatting and long-session readability.
+- [ ] Keep the client decoupled enough that a different front end can be introduced later.
+
+### Phase 6: Vertical Slice Content Implementation
+
+- [ ] Implement the inheritance hook and manor arrival flow.
+- [ ] Implement at least one complete authority-driven entry path.
+- [ ] Implement daytime exploration of the MVP rooms.
+- [ ] Implement the first shift trigger and the night-state room transformations.
+- [ ] Implement Thomas as the first-night anchor NPC.
+- [ ] Implement exterior danger as a narrative and systemic boundary.
+- [ ] Implement at least one meaningful clue chain that can progress across day and night states.
+- [ ] Implement a morning-after endpoint that preserves unresolved tension and continuity.
+
+### Phase 7: Validation and Quality Gates
+
+- [ ] Test that a new playthrough can complete the prologue and first-night loop without dead ends.
+- [ ] Test that recap output remains coherent after multiple scene transitions.
+- [ ] Test that repeated player actions produce diegetic loop responses rather than silent stagnation.
+- [ ] Test that relationship and clue state survive across the day-night boundary.
+- [ ] Test that snapshot imports produce the authored baseline without leaking runtime-only state.
+- [ ] Review the experience for clarity, pacing, and psychological tone.
+- [ ] Update documentation where implementation decisions narrow previously open design space.
+
+## QA CHECKLIST
+
+- [ ] All user instructions followed
+- [ ] All requirements implemented and tested
+- [ ] No critical code smell warnings
+- [ ] Code follows project conventions and standards
+- [ ] Documentation is updated and accurate if needed
+- [ ] Security considerations addressed
+- [ ] Performance requirements met
+- [ ] Integration points verified
+- [ ] Deployment readiness confirmed
+- [ ] Snapshot and runtime state boundaries verified
+- [ ] Recap and long-session continuity verified
