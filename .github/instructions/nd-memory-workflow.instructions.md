@@ -13,6 +13,7 @@ Use neurodivergent-memory MCP as a persistent memory layer for development sessi
 
 ## Cadence
 
+- Ensure you claim author-role for memories you create or update to build a clear personal memory graph.
 - Store key decisions, constraints, and blockers during work.
 - Store the why behind decisions, not just the fact that a decision happened.
 - Store the task plan in MCP memory before implementation, even when the plan is simple or already present in the prompt.
@@ -26,7 +27,7 @@ Use neurodivergent-memory MCP as a persistent memory layer for development sessi
 
 When neurodivergent-memory MCP tools are available:
 
-1. `memory_stats`
+1. `memory_stats` and/or `list_memories`
 2. `search_memories`
 3. plan `store_memory` or `update_memory`
 4. `connect_memories`
