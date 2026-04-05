@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -76,14 +77,23 @@ def _required_tags_for_entry(record_id: str) -> set[str]:
     if record_id == "camp_inheritance_manor_prologue_first_night":
         return {"phase:campaign_metadata", "mechanic:authored_snapshot"}
 
-    prefix, remainder = record_id.split("_", 1)
+    parts = record_id.split("_", 1)
+    if len(parts) < 2:
+        return set()
+    prefix, remainder = parts
     if prefix == "phase":
         return {f"phase:{remainder}"}
     if prefix == "loc":
-        location, state = remainder.rsplit("_", 1)
+        loc_parts = remainder.rsplit("_", 1)
+        if len(loc_parts) < 2:
+            return set()
+        location, state = loc_parts
         return {f"location:{location}", f"state:{state}"}
     if prefix == "npc":
-        name, _role = remainder.rsplit("_", 1)
+        npc_parts = remainder.rsplit("_", 1)
+        if len(npc_parts) < 2:
+            return set()
+        name, _role = npc_parts
         return {f"npc:{name}"}
     if prefix == "rel":
         relationship_name = remainder.removesuffix("_baseline")
@@ -172,8 +182,8 @@ def load_seed_pack(
         CANONICAL_PROLOGUE_SNAPSHOT_RELATIVE_PATH,
     ):
         raise ValueError(
-            "Seed-pack loads must use the canonical production snapshot path "
-            f"'{CANONICAL_PROLOGUE_SNAPSHOT_RELATIVE_PATH.as_posix()}'."
+            "Seed-pack loads must use a path ending with the canonical "
+            f"production snapshot path '{CANONICAL_PROLOGUE_SNAPSHOT_RELATIVE_PATH.as_posix()}'."
         )
     package = load_snapshot_file(snapshot_path)
     validate_authored_snapshot(package, project_id=project_id).require_valid()
@@ -259,9 +269,8 @@ def validate_authored_snapshot(
                 f"Entry '{entry.record_id}' is missing semantic retrieval tags: {', '.join(missing_semantic_tags)}."
             )
 
-    duplicate_ids = sorted(
-        record_id for record_id in set(entry_ids) if entry_ids.count(record_id) > 1
-    )
+    id_counts: Counter[str] = Counter(entry_ids)
+    duplicate_ids = sorted(record_id for record_id, count in id_counts.items() if count > 1)
     if duplicate_ids:
         errors.append(f"Snapshot contains duplicate entry ids: {', '.join(duplicate_ids)}.")
 
