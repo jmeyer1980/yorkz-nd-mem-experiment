@@ -1,5 +1,0 @@
-textual>=8.2.0
-node>=2.0.0
-
-[dev]
-pytest>=9.0.0
