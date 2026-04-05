@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yorkz"
+version = "0.1.0"
+description = "Text-first psychological thriller RPG tooling and runtime for the Yorkz project."
+readme = "DEVELOPMENT_PLAN.md"
+requires-python = ">=3.11"
+dependencies = [
+    "textual>=8.2.0",
+    "node>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"

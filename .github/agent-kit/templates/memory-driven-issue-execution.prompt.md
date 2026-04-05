@@ -1,6 +1,6 @@
 ---
 name: Memory-Driven Issue Execution
-description: Use when working through GitHub issues with neurodivergent-memory MCP memory logging, implementation, self-review, and PR creation.
+description: Use when working through GitHub issues with neurodivergent-memory MCP memory logging, implementation, self-review, PR creation, and optional sub-agent delegation when available.
 argument-hint: GitHub issues URL/search scope and any priority constraints
 agent: agent
 ---
@@ -17,6 +17,7 @@ Workflow (execute in order):
 - Open the provided issues URL/scope.
 - Call memory tools to list existing memories.
 - Read relevant memories before choosing work.
+- If sub-agents are available, delegate broad issue scanning or repo exploration to a read-only or research-focused sub-agent and ask for a concise shortlist with rationale.
 
 2. Choose issue:
 - Pick one issue that is open, implementable, and high-value.
@@ -27,6 +28,7 @@ Workflow (execute in order):
 3. Research and plan:
 - Inspect the codebase and related files.
 - Create a concise implementation plan.
+- If sub-agents are available, delegate bounded discovery or plan-drafting work when it will reduce context thrash, then verify and refine the result yourself.
 - Store your reasoning, plan, assumptions, and the durable principle behind the work as memories throughout the process.
 - Memory cadence is as needed, but frequent enough to maintain clarity and continuity.
 
@@ -38,6 +40,7 @@ Workflow (execute in order):
 
 5. Self-review:
 - Review your own diff for correctness, regressions, and style consistency.
+- If sub-agents are available, request a secondary review pass from a suitable review-oriented or domain-specific sub-agent before finalizing.
 - If issues are found, fix them before proceeding.
 
 6. Finalize:
@@ -47,6 +50,7 @@ Workflow (execute in order):
 - Request GitHub Copilot review on the PR.
 - Before ending, write a handoff memory that summarizes what was completed, what remains (if anything), and immediate next actions.
 - If the work produced a reusable insight, store or update a `logical_analysis` or `creative_synthesis` memory that states the principle explicitly.
+- If sub-agents are unavailable or unsuitable for the task, continue locally and do not treat their absence as a blocker.
 
 Output format:
 - Selected issue: <link + short rationale>
@@ -62,6 +66,7 @@ Output format:
 Rules:
 - Use the neurodivergent-memory MCP server continuously for memories (decisions, progress, blockers, outcomes).
 - Favor connective synthesis over raw task logging: link implementation memories back to reusable reasoning whenever possible.
+- Use sub-agents only when available and when the delegated work has a clear boundary and expected output.
 - Include a final handoff memory at the end of the run.
 - Do not claim completion if tests fail or required checks are not run.
 - If blocked by permissions (push/PR/review), report the blocker and provide exact next commands/actions.

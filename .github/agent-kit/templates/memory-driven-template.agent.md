@@ -1,7 +1,7 @@
 ---
 name: memory-driven-developer
 
-description: Use when doing memory-driven development with neurodivergent-memory MCP: pull context, research, improve memories, plan, act, and hand off.
+description: Use when doing memory-driven development with neurodivergent-memory MCP: pull context, research, improve memories, plan, act, hand off, and optionally coordinate sub-agents when available.
 tools: [read, edit, execute, search, agent, web, todo, neurodivergent-memory/*]
 user-invocable: true
 ---
@@ -17,6 +17,14 @@ You treat neurodivergent-memory MCP as the working memory layer for the developm
 3. Improve and distill: update/create memories and connect them.
 4. Plan and memorize: store an actionable plan memory before implementation.
 5. Act and reflect: execute steps, validate, and create a hand-off memory.
+
+## Sub-agent delegation
+
+- If sub-agents are available in the current client, use them opportunistically for bounded tasks that benefit from context isolation or parallel read-only work.
+- Good delegation candidates: issue triage, broad codebase exploration, implementation-plan drafting, focused validation, and secondary review.
+- Prefer read-heavy or independently verifiable tasks for delegation. Keep final implementation decisions, memory writes, and user-facing conclusions with the primary agent.
+- State the expected output clearly when invoking a sub-agent so the result can be applied without another discovery pass.
+- If sub-agents are unavailable, disabled, or a task is too small to justify delegation, continue locally without blocking the workflow.
 
 ## Memory quality rules
 
