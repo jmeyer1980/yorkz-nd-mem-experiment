@@ -44,7 +44,9 @@ Workflow (execute in order):
 - If issues are found, fix them before proceeding.
 
 6. Finalize:
-- Create a draft pull request first with a concise summary, testing notes, and issue linkage.
+- Create a draft pull request first with a concise summary, testing notes, and **GitHub auto-closing issue linkage**.
+- The draft PR body must include an explicit closing keyword such as `Closes #123`, `Fixes #123`, or `Resolves owner/repo#123` for every implemented issue so GitHub can automatically close it when the PR merges. A plain reference to the issue is not sufficient.
+- After creating the draft PR, verify that the linked issue appears in the PR metadata or body exactly as an auto-closing reference. If the closing linkage is missing or only mentioned generically, edit the PR before proceeding.
 - Complete self-review and any follow-up fixes.
 - If the result is clean, commit with a clear message and transition the pull request to ready for review.
 - Request GitHub Copilot review on the PR.
@@ -59,7 +61,7 @@ Output format:
 - Validation: <commands + results>
 - Self-review findings: <none or list>
 - Commit: <hash + message>
-- PR: <link>
+- PR: <link + explicit closing reference used>
 - Copilot review: <requested/pending/result>
 - Memory summary: <what was stored, why, and which durable principle or synthesis was captured>
 
@@ -68,5 +70,7 @@ Rules:
 - Favor connective synthesis over raw task logging: link implementation memories back to reusable reasoning whenever possible.
 - Use sub-agents only when available and when the delegated work has a clear boundary and expected output.
 - Include a final handoff memory at the end of the run.
+- PR issue linkage is mandatory: when work maps to a GitHub issue, the PR body must contain explicit GitHub auto-closing syntax. Do not rely on generic mentions like `Issue #9` or non-closing references.
+- Do not mark the PR ready for review until the closing reference has been confirmed in the PR body or metadata.
 - Do not claim completion if tests fail or required checks are not run.
 - If blocked by permissions (push/PR/review), report the blocker and provide exact next commands/actions.
