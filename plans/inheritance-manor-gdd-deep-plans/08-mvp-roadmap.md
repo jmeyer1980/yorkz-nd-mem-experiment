@@ -71,9 +71,9 @@ Exit criteria:
 
 Primary evidence:
 
-- `campaigns/inheritance-manor/prologue-snapshot.json` is the canonical authored seed pack,
-- `docs/initial drafts/draft-inheritance-manor-memories.json` is a planning mirror rather than the runtime import target,
-- content-pipeline code validates, loads, and exports authored snapshot content.
+- `campaigns/inheritance-manor/prologue-snapshot.json` is the required canonical authored seed-pack path for Milestone 2 once the content pipeline lands,
+- `docs/initial drafts/draft-inheritance-manor-memories.json` remains a planning mirror rather than the runtime import target,
+- content-pipeline code provides validation, loading, and export support for authored snapshot content against that canonical artifact.
 
 Validation expectations:
 
