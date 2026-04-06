@@ -10,11 +10,11 @@ The first authored campaign snapshot must ultimately live at:
 
 - `campaigns/inheritance-manor/prologue-snapshot.json`
 
-The current draft scaffold:
+The planning-reference mirror:
 
 - `docs/initial drafts/draft-inheritance-manor-memories.json`
 
-exists only as an authoring signal and must not be treated as production-ready snapshot content.
+tracks the same authored seed pack for reference, but runtime import and validation must treat the production snapshot path above as canonical.
 
 ## Authoring Workflow
 
@@ -123,7 +123,7 @@ The following records must only appear after play begins:
 - The rule anchor for outside danger at night exists.
 - No runtime-only records are present.
 
-## Seed Pack Definition For The Empty Draft File
+## Seed Pack Definition
 
 Before runtime work begins, the project must author at minimum:
 
@@ -142,7 +142,7 @@ Before runtime work begins, the project must author at minimum:
 ## Verification Checklist
 
 - The production snapshot path is named.
-- The empty draft file is treated as a gap, not a completed artifact.
+- The draft mirror is not used as the runtime import target.
 - Import settings match the synopsis.
 - Seed-pack minimums are explicit.
 - Runtime-only data is excluded from the authored snapshot.

@@ -1,10 +1,24 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 
 import pytest
 
+from yorkz.content_pipeline import (
+    build_memory_system_from_snapshot,
+    export_authored_snapshot_file,
+    load_seed_pack,
+    load_snapshot_file,
+    validate_authored_snapshot,
+    write_snapshot_file,
+)
 from yorkz.memory_system import MemoryRecord, MemorySystem, SearchFilters, SnapshotPackage, make_authored_id
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PRODUCTION_SNAPSHOT_PATH = REPO_ROOT / "campaigns" / "inheritance-manor" / "prologue-snapshot.json"
+DRAFT_SNAPSHOT_PATH = REPO_ROOT / "docs" / "initial drafts" / "draft-inheritance-manor-memories.json"
 
 
 def build_tags(*extra: str) -> list[str]:
@@ -518,10 +532,111 @@ def test_import_snapshot_raises_on_unknown_connection_endpoint() -> None:
         entries=[known],
         connections=[(known.record_id, "nonexistent_id_xyz", True)],
     )
+
+    with pytest.raises(ValueError, match=r"unknown id\(s\)"):
+        MemorySystem(project_id="yorkz").import_snapshot(package)
+
+
+def test_seed_pack_snapshot_validates_cleanly() -> None:
+    package = load_seed_pack(PRODUCTION_SNAPSHOT_PATH)
+    report = validate_authored_snapshot(package, project_id="yorkz")
+
+    assert report.errors == []
+    assert report.entry_count >= 34
+    assert report.category_counts["phase"] == 6
+    assert report.category_counts["npc"] == 3
+
+
+def test_draft_snapshot_mirrors_production_seed_pack() -> None:
+    production = load_snapshot_file(PRODUCTION_SNAPSHOT_PATH)
+    draft = load_snapshot_file(DRAFT_SNAPSHOT_PATH)
+
+    assert draft.to_dict() == production.to_dict()
+
+
+def test_build_memory_system_from_seed_pack_preserves_connections() -> None:
+    package = load_seed_pack(PRODUCTION_SNAPSHOT_PATH)
+
+    store = build_memory_system_from_snapshot(package)
+
+    assert len(store.records) == len(package.entries)
+    assert store.get("camp_inheritance_manor_prologue_first_night").memory_type == "authored"
+    assert store.traverse("clue_letter_signature_mismatch", max_depth=2) == [
+        "clue_letter_signature_mismatch",
+        "clue_ledger_missing_transfer",
+        "clue_muddy_shoeprint",
+    ]
+
+
+def test_load_seed_pack_rejects_non_canonical_path() -> None:
+    with pytest.raises(ValueError, match="canonical production snapshot path"):
+        load_seed_pack(DRAFT_SNAPSHOT_PATH)
+
+
+def test_snapshot_file_write_and_reload_roundtrip(tmp_path: Path) -> None:
+    package = load_seed_pack(PRODUCTION_SNAPSHOT_PATH)
+    target = tmp_path / "seed-pack-roundtrip.json"
+
+    write_snapshot_file(package, target)
+    reloaded = load_snapshot_file(target)
+
+    assert reloaded.to_dict() == package.to_dict()
+
+
+def test_export_authored_snapshot_file_writes_only_authored_entries(tmp_path: Path) -> None:
     store = MemorySystem(project_id="yorkz")
-    with pytest.raises(ValueError, match="nonexistent_id_xyz"):
-        store.import_snapshot(package)
-    assert store.records == {}
+    authored = MemoryRecord(
+        record_id=make_authored_id("loc", "great_hall", "day"),
+        content="Great Hall daylight anchor.",
+        district="logical_analysis",
+        tags=build_tags("campaign:inheritance_manor", "slice:prologue_first_night", "state:day", "location:great_hall"),
+        project_id="yorkz",
+        memory_type="authored",
+    )
+    runtime = MemoryRecord(
+        record_id="runtime_note_1",
+        content="Player chose to inspect the front steps.",
+        district="practical_execution",
+        tags=build_tags("kind:state", "campaign:inheritance_manor", "slice:prologue_first_night", "location:exterior_front"),
+        project_id="yorkz",
+        memory_type="runtime",
+    )
+    store.upsert(authored)
+    store.upsert(runtime)
+
+    target = tmp_path / "authored-only.json"
+    package = export_authored_snapshot_file(
+        store,
+        target,
+        campaign_id="inheritance-manor-prologue-v1",
+    )
+    reloaded = load_snapshot_file(target)
+
+    assert [entry.record_id for entry in package.entries] == [authored.record_id]
+    assert [entry.record_id for entry in reloaded.entries] == [authored.record_id]
+
+
+def test_validate_authored_snapshot_rejects_runtime_entry() -> None:
+    invalid = SnapshotPackage(
+        campaign_id="inheritance-manor-prologue-v1",
+        project_id="yorkz",
+        entries=[
+            MemoryRecord(
+                record_id="runtime_note_1",
+                content="Runtime notes do not belong in authored snapshots.",
+                district="practical_execution",
+                tags=build_tags("kind:state", "campaign:inheritance_manor", "slice:prologue_first_night", "phase:first_shift"),
+                project_id="yorkz",
+                memory_type="runtime",
+            )
+        ],
+    )
+
+    report = validate_authored_snapshot(invalid, project_id="yorkz")
+
+    assert any("must be authored" in error for error in report.errors)
+    with pytest.raises(ValueError, match="Invalid authored snapshot"):
+        report.require_valid()
 
 
 def test_sync_to_gateway_deduplicates_record_ids() -> None:
