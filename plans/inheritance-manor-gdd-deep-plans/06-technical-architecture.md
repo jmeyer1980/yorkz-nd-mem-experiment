@@ -190,6 +190,16 @@ This keeps the architecture stable while the repository is still proving the cam
 - current phase and room context remain visible without hidden UI state,
 - a session can resume from recap-ready stored memory without ad hoc reconstruction.
 
+## Implementation Status Link (Issue #11)
+
+The Milestone 3 contract layer is implemented in code through:
+
+- `src/yorkz/turn_orchestration.py` for turn input/output contracts and the minimal orchestration loop,
+- lineage-scoped runtime retrieval policy enforcement and deterministic write-intent generation in the same module,
+- focused contract tests in `tests/test_turn_orchestration.py`.
+
+These artifacts operationalize the interface contracts and testing surfaces in this document while keeping framework choice deferred.
+
 ## Verification Checklist
 
 - The three-layer architecture is explicit.
