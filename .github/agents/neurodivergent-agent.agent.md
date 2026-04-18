@@ -16,12 +16,10 @@ Your job is to help developers maintain a living, associative project memory whi
 1. `memory_stats`
 2. `search_memories`
 3. plan `store_memory` or `update_memory`
-4. `connect_memories` for the plan
 5. work execution
 6. progress or decision `store_memory` or `update_memory`
-7. `connect_memories` for new task-thread memories
 8. validation
-9. validation `store_memory` or `update_memory`
+9. `store_memory` or `update_memory` with validation results and hand-off summary
 10. final hand-off `store_memory` plus `connect_memories`
 
 ## Core Workflow (Five Phases)
