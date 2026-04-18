@@ -194,3 +194,56 @@ def test_classification_uses_whole_word_tokens() -> None:
     )
 
     assert [intent.category for intent in output.write_intents] == ["decision"]
+
+
+def test_write_intents_use_campaign_from_authored_tags_not_project_id() -> None:
+    store = _build_store()
+    orchestrator = TurnOrchestrator(memory_store=store, project_id="yorkz")
+
+    output = orchestrator.process_turn(
+        TurnInput(
+            session_id="s1",
+            project_id="yorkz",
+            lineage_id="lineage-a",
+            player_command="inspect desk",
+        )
+    )
+
+    assert any("campaign:inheritance_manor" in intent.tags for intent in output.write_intents)
+    assert all("campaign:yorkz" not in intent.tags for intent in output.write_intents)
+
+
+def test_phase_and_location_defaults_are_normalized() -> None:
+    store = _build_store()
+    orchestrator = TurnOrchestrator(memory_store=store, project_id="yorkz")
+
+    output = orchestrator.process_turn(
+        TurnInput(
+            session_id="s1",
+            project_id="yorkz",
+            lineage_id="lineage-a",
+            player_command="wait",
+        )
+    )
+
+    assert output.current_phase_id == "arrival"
+    assert output.current_location_id == "great_hall"
+    assert all("phase:phase_arrival" not in intent.tags for intent in output.write_intents)
+    assert all("location:loc_great_hall_day" not in intent.tags for intent in output.write_intents)
+
+
+def test_turn_input_campaign_id_overrides_authored_campaign_tag() -> None:
+    store = _build_store()
+    orchestrator = TurnOrchestrator(memory_store=store, project_id="yorkz")
+
+    output = orchestrator.process_turn(
+        TurnInput(
+            session_id="s1",
+            project_id="yorkz",
+            lineage_id="lineage-a",
+            player_command="inspect desk",
+            campaign_id="inheritance-manor-prologue-v1",
+        )
+    )
+
+    assert any("campaign:inheritance_manor_prologue_v1" in intent.tags for intent in output.write_intents)

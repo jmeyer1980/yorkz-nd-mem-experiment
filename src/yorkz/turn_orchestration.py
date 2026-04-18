@@ -37,6 +37,7 @@ class TurnInput:
     project_id: str
     lineage_id: str
     player_command: str
+    campaign_id: str | None = None
     phase_hint: str | None = None
     location_hint: str | None = None
     recap_requested: bool = False
@@ -164,33 +165,81 @@ class TurnOrchestrator:
         for record in reversed(runtime_records):
             phase_tag = next((tag for tag in record.tags if tag.startswith("phase:")), None)
             if phase_tag:
-                return phase_tag.split(":", 1)[1]
+                return self._normalize_phase_id(phase_tag.split(":", 1)[1])
         if phase_hint:
-            return phase_hint
+            return self._normalize_phase_id(phase_hint)
+        authored_phase_tags = sorted(
+            tag.split(":", 1)[1]
+            for record in self._memory_store.records.values()
+            if record.memory_type == "authored" and record.project_id == self._project_id
+            for tag in record.tags
+            if tag.startswith("phase:")
+        )
+        if authored_phase_tags:
+            return self._normalize_phase_id(authored_phase_tags[0])
         authored_phase_ids = sorted(
             record.record_id
             for record in self._memory_store.records.values()
             if record.memory_type == "authored" and record.record_id.startswith("phase_")
         )
         if authored_phase_ids:
-            return authored_phase_ids[0]
-        return "phase_unknown"
+            return self._normalize_phase_id(authored_phase_ids[0])
+        return "unknown"
 
     def _resolve_location_id(self, runtime_records: list[MemoryRecord], location_hint: str | None) -> str:
         for record in reversed(runtime_records):
             location_tag = next((tag for tag in record.tags if tag.startswith("location:")), None)
             if location_tag:
-                return location_tag.split(":", 1)[1]
+                return self._normalize_location_id(location_tag.split(":", 1)[1])
         if location_hint:
-            return location_hint
+            return self._normalize_location_id(location_hint)
+        authored_location_tags = sorted(
+            tag.split(":", 1)[1]
+            for record in self._memory_store.records.values()
+            if record.memory_type == "authored" and record.project_id == self._project_id
+            for tag in record.tags
+            if tag.startswith("location:")
+        )
+        if authored_location_tags:
+            return self._normalize_location_id(authored_location_tags[0])
         authored_location_ids = sorted(
             record.record_id
             for record in self._memory_store.records.values()
             if record.memory_type == "authored" and record.record_id.startswith("loc_")
         )
         if authored_location_ids:
-            return authored_location_ids[0]
-        return "location_unknown"
+            return self._normalize_location_id(authored_location_ids[0])
+        return "unknown"
+
+    def _normalize_phase_id(self, phase_id: str) -> str:
+        normalized = _normalize_token(phase_id)
+        if normalized.startswith("phase_"):
+            return normalized[len("phase_") :]
+        return normalized
+
+    def _normalize_location_id(self, location_id: str) -> str:
+        normalized = _normalize_token(location_id)
+        if normalized.startswith("loc_"):
+            normalized = normalized[len("loc_") :]
+        for suffix in ("_day", "_night"):
+            if normalized.endswith(suffix):
+                normalized = normalized[: -len(suffix)]
+                break
+        return normalized
+
+    def _resolve_campaign_id(self, turn_input: TurnInput) -> str | None:
+        if turn_input.campaign_id:
+            return _normalize_token(turn_input.campaign_id)
+        authored_campaign_tags = sorted(
+            tag.split(":", 1)[1]
+            for record in self._memory_store.records.values()
+            if record.memory_type == "authored" and record.project_id == self._project_id
+            for tag in record.tags
+            if tag.startswith("campaign:")
+        )
+        if authored_campaign_tags:
+            return _normalize_token(authored_campaign_tags[0])
+        return None
 
     def _resolve_recap_inputs(self, runtime_records: list[MemoryRecord], recap_requested: bool) -> list[str]:
         if not recap_requested:
@@ -291,6 +340,7 @@ class TurnOrchestrator:
         )
         lineage_slug = _normalize_token(turn_input.lineage_id)
         command_token = _normalize_token(turn_input.player_command)
+        campaign_id = self._resolve_campaign_id(turn_input)
         intents = []
         for category in categories:
             record_id = f"runtime_{lineage_slug}_turn_{turn_index}_{category}"
@@ -301,9 +351,10 @@ class TurnOrchestrator:
                 "layer:implementation",
                 f"phase:{current_phase_id}",
                 f"location:{current_location_id}",
-                f"campaign:{_normalize_token(self._project_id)}",
                 f"command_token:{command_token}",
             ]
+            if campaign_id:
+                tags.append(f"campaign:{campaign_id}")
             intents.append(
                 WriteIntent(
                     category=category,
