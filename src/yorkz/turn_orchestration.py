@@ -82,6 +82,11 @@ class TurnOrchestrator:
     """Framework-neutral turn orchestrator for the text-first runtime contract."""
 
     def __init__(self, *, memory_store: MemorySystem, project_id: str) -> None:
+        if memory_store.project_id != project_id:
+            raise ValueError(
+                "TurnOrchestrator memory_store.project_id "
+                f"'{memory_store.project_id}' does not match project_id '{project_id}'."
+            )
         self._memory_store = memory_store
         self._project_id = project_id
 
