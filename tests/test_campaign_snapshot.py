@@ -3,10 +3,16 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from yorkz.memory_system import MemoryRecord, SnapshotPackage
+from yorkz.memory_system import (
+    CANONICAL_TAG_PREFIXES,
+    GAME_TAG_PREFIXES,
+    MemoryRecord,
+    SnapshotPackage,
+)
 
 
-SNAPSHOT_PATH = Path("campaigns/inheritance-manor/prologue-snapshot.json")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SNAPSHOT_PATH = REPO_ROOT / "campaigns" / "inheritance-manor" / "prologue-snapshot.json"
 
 
 def _load_snapshot() -> dict:
@@ -81,26 +87,12 @@ def test_snapshot_includes_required_mvp_category_minimums() -> None:
 def test_snapshot_entries_use_canonical_and_game_tags() -> None:
     package = SnapshotPackage.from_dict(_load_snapshot())
 
-    canonical = ("topic:", "scope:", "kind:", "layer:")
-    game_prefixes = (
-        "campaign:",
-        "slice:",
-        "phase:",
-        "location:",
-        "state:",
-        "npc:",
-        "relationship:",
-        "mystery:",
-        "mechanic:",
-        "hook:",
-        "rule:",
-        "clue:",
-        "recap:",
-    )
+    canonical_prefixes = tuple(f"{prefix}:" for prefix in CANONICAL_TAG_PREFIXES)
+    game_prefixes = tuple(f"{prefix}:" for prefix in GAME_TAG_PREFIXES)
 
     for entry in package.entries:
         tags = entry.tags
-        for required_prefix in canonical:
+        for required_prefix in canonical_prefixes:
             assert any(tag.startswith(required_prefix) for tag in tags)
         assert any(tag.startswith(prefix) for prefix in game_prefixes for tag in tags)
 
