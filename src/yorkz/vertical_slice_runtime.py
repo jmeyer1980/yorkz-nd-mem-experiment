@@ -117,10 +117,13 @@ class PlayableVerticalSliceRuntime:
                 recap_requested=recap_requested,
             )
         )
+        turn_index = self._next_turn_index(lineage_id)
+        lineage_slug = _normalize_token(lineage_id)
         for intent in orchestrator_output.write_intents:
+            intent_record_id = f"runtime_{lineage_slug}_turn_{turn_index}_{intent.category}"
             self._memory_store.upsert(
                 MemoryRecord(
-                    record_id=intent.record_id,
+                    record_id=intent_record_id,
                     content=intent.content,
                     district=intent.district,
                     tags=list(intent.tags),
@@ -182,7 +185,7 @@ class PlayableVerticalSliceRuntime:
                     kind="recap",
                     phase_id=next_phase,
                     location_id=next_location,
-                    extra=["recap:morning_after"],
+                    extra=[f"recap:{next_phase}"],
                 ),
             )
 
@@ -508,7 +511,7 @@ class PlayableVerticalSliceRuntime:
         content: str,
         tags: list[str],
     ) -> MemoryRecord:
-        runtime_count = len(self._lineage_runtime_records(lineage_id)) + 1
+        runtime_count = self._next_runtime_sequence(lineage_id)
         lineage_slug = _normalize_token(lineage_id)
         purpose_slug = _normalize_token(purpose)
         record_id = f"runtime_{lineage_slug}_slice_{runtime_count}_{purpose_slug}"
@@ -523,6 +526,29 @@ class PlayableVerticalSliceRuntime:
         )
         self._memory_store.upsert(record)
         return record
+
+    def _next_turn_index(self, lineage_id: str) -> int:
+        max_turn = 0
+        for record in self._memory_store.records.values():
+            if (
+                record.memory_type == "runtime"
+                and record.project_id == self._project_id
+                and record.lineage_id == lineage_id
+                and "_turn_" in record.record_id
+            ):
+                max_turn = max(max_turn, _runtime_sequence(record.record_id))
+        return max_turn + 1
+
+    def _next_runtime_sequence(self, lineage_id: str) -> int:
+        max_sequence = 0
+        for record in self._memory_store.records.values():
+            if (
+                record.memory_type == "runtime"
+                and record.project_id == self._project_id
+                and record.lineage_id == lineage_id
+            ):
+                max_sequence = max(max_sequence, _runtime_sequence(record.record_id))
+        return max_sequence + 1
 
     def _lineage_runtime_records(self, lineage_id: str) -> list[MemoryRecord]:
         return [
